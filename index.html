@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"> <!-- Added user-scalable=no for mobile -->
+    <title>3D Gaussian Splatting Viewer</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/popup.css">
+    <link rel="stylesheet" href="css/manual-lod-style.css"> <!-- Contains styles for settings panel content -->
+    <link rel="icon" href="data:,">
+    
+    <!-- Babylon.js Dependencies -->
+    <script src="https://cdn.babylonjs.com/babylon.js"></script>
+    <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+    <!-- Optional: Add GUI dependency if needed later -->
+    <!-- <script src="https://cdn.babylonjs.com/gui/babylon.gui.min.js"></script> -->
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Main Render Canvas -->
+    <canvas id="renderCanvas"></canvas>
+
+    <!-- UI Elements -->
+    <div id="uiContainer"> <!-- Added a container for easier management -->
+
+        <!-- Action Bar (Top Left) -->
+        <div id="controls" class="controls-container">
+            <div id="actionBar" class="action-bar">
+                <button id="toggleSettings" class="action-button" aria-label="Settings" title="Open Settings Panel">
+                    <i class="fas fa-sliders"></i>
+                </button>
+                <button id="toggleInfo" class="action-button" aria-label="Information" title="Show Information Panel">
+                    <i class="fas fa-info-circle"></i>
+                </button>
+                <button id="toggleJoystick" class="action-button" aria-label="Toggle Joystick" title="Toggle Virtual Joystick (J)">
+                    <i class="fas fa-gamepad"></i>
+                </button>
+                <button id="toggleFullscreen" class="action-button" aria-label="Toggle Fullscreen" title="Toggle Fullscreen (F)">
+                    <i class="fas fa-expand"></i> <!-- Icon updated dynamically by ui.js -->
+                </button>
+            </div>
+
+            <!-- Settings Panel (Content added by manual-lod.js) -->
+            <div id="settingsPanel" class="panel">
+                <!-- Close button and Resolution buttons added dynamically by JS -->
+                <!-- Placeholder to ensure it exists for JS -->
+            </div>
+
+            <!-- Info Panel -->
+            <div id="infoPanel" class="panel">
+                <button class="panel-close" aria-label="Close panel">
+                    <i class="fas fa-times"></i>
+                </button>
+                <h3><i class="fas fa-info-circle"></i> Information</h3>
+                <div class="info-row">
+                    <div class="info-label">Controls:</div>
+                    <div class="info-value">WASD/Arrows: Move | Mouse Drag: Look</div>
+                </div>
+                 <div class="info-row">
+                    <div class="info-label">Joystick:</div>
+                    <div class="info-value">Tap/Drag bottom-left circle (if visible)</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Keyboard:</div>
+                    <div class="info-value">
+                        'J' - Toggle joystick<br>
+                        'F' - Toggle fullscreen<br>
+                        'Esc' - Close panels/popups
+                    </div>
+                </div>
+                 <div class="info-row">
+                     <div class="info-label">Interaction:</div>
+                     <div class="info-value">Click/Tap on specific art objects to view details.</div>
+                 </div>
+                 <hr style="border-color: var(--border-color); margin: 10px 0;"> <!-- Separator -->
+                 <div class="info-row">
+                    <div class="info-label">Status:</div>
+                    <div class="info-value status-container">
+                        <span class="status-indicator status-warning"></span> <!-- Class updated by ui.js -->
+                        <span id="colliderStatus">Loading...</span> <!-- Text updated by ui.js -->
+                    </div>
+                 </div>
+                 <!-- Performance Indicator will be added dynamically to body -->
+            </div>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div id="loadingIndicator" aria-hidden="true">
+            <div class="spinner"></div>
+            <div class="loading-text">Loading...</div>
+        </div>
+
+        <!-- Virtual Joystick (Bottom Left) -->
+        <div id="joystickContainer" style="display: none;"> <!-- Initially hidden, controlled by JS -->
+            <div id="joystickBase">
+                <div id="joystickHandle"></div>
+            </div>
+        </div>
+
+        <!-- Art Popup (Added dynamically by interaction.js) -->
+        <!-- <div class="popup-menu">...</div> -->
+
+    </div> <!-- End uiContainer -->
+
+
+    <!-- Scripts -->
+    <!-- Configuration FIRST -->
+    <script src="js/config.js"></script>
+    <!-- Event Manager SECOND -->
+    <script src="js/event-manager.js"></script>
+
+    <!-- Load component scripts - ORDER MATTERS -->
+    <script src="js/ui.js"></script>            <!-- Defines setPixelRatio, panel toggling, loading indicator etc. -->
+    <script src="js/camera.js"></script>        <!-- Defines camera, needs scene -->
+    <script src="js/scene.js"></script>         <!-- Defines scene, loads assets, needs engine -->
+    <script src="js/joystick.js"></script>      <!-- Defines joystick, needs UI elements -->
+    <script src="js/art-descriptions.js"></script> <!-- Data for interaction -->
+    <script src="js/interaction.js"></script>   <!-- Needs scene, camera, art-descriptions, getArtInfo -->
+    <script src="js/manual-lod.js"></script>    <!-- Needs ui.js (setPixelRatio), scene, camera. Defines updateButtonActiveStates, initWithDefaults -->
+
+    <!-- Main script, load LAST -->
+    <script src="js/main.js"></script>
+
+</body>
+</html>

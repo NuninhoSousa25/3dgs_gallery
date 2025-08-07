@@ -1,0 +1,120 @@
+/* Enhanced popup.css - Improved Popup UI styling */
+
+.popup-menu {
+    position: absolute; /* Crucial for left/top positioning */
+    background-color: rgba(30, 30, 30, 0.95);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    padding: 15px;
+    min-width: 240px;
+    max-width: 320px;
+    z-index: 1000; /* Make sure it's above other elements */
+    opacity: 0; /* Start hidden */
+    transform: scale(0.95) translateY(10px); /* Start slightly scaled down/offset */
+    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+    pointer-events: none; /* Ignore clicks when hidden */
+    display: none; /* Use display none initially */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-light); /* Ensure text color is visible */
+}
+
+.popup-menu.active {
+    opacity: 1; /* Fade in */
+    transform: scale(1) translateY(0); /* Animate to final position/scale */
+    pointer-events: auto; /* Allow clicks when visible */
+    display: block; /* MUST be block or similar to be visible */
+}
+
+.popup-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    color: var(--primary-color); /* Use CSS variable */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 8px;
+    padding-right: 30px; /* Make room for close button */
+}
+
+.popup-content {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-light); /* Use CSS variable */
+}
+
+.popup-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: transparent;
+    border: none;
+    color: #999;
+    cursor: pointer;
+    width: 28px; /* Slightly larger touch target */
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s, color 0.2s;
+    font-size: 16px; /* Make icon slightly larger */
+}
+
+.popup-close:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+
+/* Art info styling */
+.art-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.art-info-row {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 4px;
+}
+
+.art-info-label {
+    font-weight: bold;
+    color: var(--primary-color); /* Use CSS variable */
+    min-width: 60px;
+    margin-right: 5px; /* Add spacing */
+}
+
+.art-info-artist, .art-info-year, .art-info-medium {
+    /* Style for the value part */
+    color: var(--text-light);
+}
+
+
+.art-description {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ddd;
+    font-style: italic;
+    line-height: 1.6;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .popup-menu {
+        max-width: 85%;
+        padding: 12px;
+    }
+
+    .popup-title {
+        font-size: 16px;
+    }
+
+    .popup-content {
+        font-size: 13px;
+    }
+
+    .art-info-label {
+        min-width: 55px;
+    }
+}
