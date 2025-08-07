@@ -2,6 +2,14 @@
 
 A high-performance web-based 3D Gaussian Splatting viewer with interactive art gallery features, built using Babylon.js. This application provides an immersive way to explore 3D scenes with dynamic resolution scaling, collision detection, and interactive art objects.
 
+### To implement / Fix
+- resolution ui as some issues when changing from one option to another
+- information ui should have the text more organized
+- understand diference in performance from brave broweser and google chrome
+- joystick and wasd have diferente sensibilities
+- info on mobile needs to have smaller text and ui
+
+
 ## ✨ Features
 
 ### Core Functionality
